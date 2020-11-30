@@ -6,16 +6,21 @@ export default function LastShotstList ({lastShots, onChange}) {
 
   const pushShot = (s) => onChange(String(s)) 
 
+  console.log(lastShots)
+
   return (
     <View style={styles.container}>
-        { 
-          lastShots.map((shot,i) => {
-            return( 
-                <TouchableOpacity style={styles.tShot}>
-                  <Text keys={i} onPress={() => pushShot(shot)} style={styles.xShot} > <Text>  {shot}  </Text> </Text> 
-                </TouchableOpacity>
-              )
-          })
+        { lastShots.length ?  
+            (lastShots.map((shot,i) => {
+              console.log(shot +' - '+ i)
+              return(
+                  <TouchableOpacity style={styles.tShot} key={i}>
+                    <Text onPress={() => pushShot(shot)} style={styles.xShot}> 
+                        <Text style={styles.xShotShow}>{shot} M</Text>  
+                    </Text> 
+                  </TouchableOpacity>
+                )
+            }) ) : (  <Text style={styles.textLastShot} > Last shot </Text> )              
         }
     </View>
   );
@@ -23,9 +28,10 @@ export default function LastShotstList ({lastShots, onChange}) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height:100,
     backgroundColor: '#222223',
-    borderColor: '#fff',
+    borderTopColor: 'orange',
+    borderWidth: 2,
     flexDirection:'row',
     justifyContent: 'space-between',
     padding:'4%',
@@ -33,20 +39,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   tShot:{
-    flex: 1,
     margin : 1,
+    height: 50,
+    width: '20%',
     borderWidth: 2,
     borderColor: 'orange',
     borderRadius: 10,
     color: 'orange',
-    justifyContent: 'center',
     alignItems: 'center',
+    justifyContent: 'center',
   },
   xShot:{
-    margin : 1,
-    height: 50,
     fontWeight: "bold",
     color: 'orange',
-    paddingTop:'20%'
-  }
+  },
+  textLastShot:{
+    color: 'orange',
+  },
 });
